@@ -20,10 +20,10 @@ public class Control extends JPanel {
     private int generationNum = 0;
     private Grid grid;
     private Timer timer = new Timer(250, new TimerListener());
-    private static final Color SEABLUE = new Color(153, 255, 51);
-    private static final Color SEAGRAY = new Color(128, 128, 128);
+    private static final Color LIME = new Color(153, 255, 51);
+    private static final Color STONE = new Color(128, 128, 128);
     private static final Color DARKGREY = new Color(32, 32, 32);
-    private String[] presets = {"Blank", "Blinker", "Exploder"};
+    ImageIcon img = new ImageIcon("ico_test.png");
 
     public Control(final Grid grid) {
         this.grid = grid;
@@ -33,14 +33,14 @@ public class Control extends JPanel {
         menuLabel = new JLabel("          Menu");
         menuLabel.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         
-        menuLabel.setForeground(SEABLUE);
+        menuLabel.setForeground(LIME);
         
         add(menuLabel);
         
         save = new JButton("Save");
         save.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        save.setBackground(SEAGRAY);
-        save.setForeground(SEABLUE);
+        save.setBackground(STONE);
+        save.setForeground(LIME);
         save.setBorder(null);
         save.setFocusPainted(false);
         save.addActionListener(new BtnListener());
@@ -49,8 +49,8 @@ public class Control extends JPanel {
 
         open = new JButton("Open");
         open.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        open.setBackground(SEAGRAY);
-        open.setForeground(SEABLUE);
+        open.setBackground(STONE);
+        open.setForeground(LIME);
         open.setBorder(null);
         open.setFocusPainted(false);
         open.addActionListener(new BtnListener());
@@ -59,8 +59,8 @@ public class Control extends JPanel {
         
         compare = new JButton("Compare");
         compare.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        compare.setBackground(SEAGRAY);
-        compare.setForeground(SEABLUE);
+        compare.setBackground(STONE);
+        compare.setForeground(LIME);
         compare.setBorderPainted(false);
         compare.setFocusPainted(false);
         compare.addActionListener(new BtnListener());
@@ -69,8 +69,8 @@ public class Control extends JPanel {
         
         step = new JButton("Take Step");
         step.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        step.setBackground(SEAGRAY);
-        step.setForeground(SEABLUE);
+        step.setBackground(STONE);
+        step.setForeground(LIME);
         step.setBorder(null);
         step.setFocusPainted(false);
         step.addActionListener(new BtnListener());
@@ -80,8 +80,8 @@ public class Control extends JPanel {
         
         clear = new JButton("Clear Grid");
         clear.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        clear.setBackground(SEAGRAY);
-        clear.setForeground(SEABLUE);
+        clear.setBackground(STONE);
+        clear.setForeground(LIME);
         clear.setBorderPainted(false);
         clear.setFocusPainted(false);
         clear.addActionListener(new BtnListener());
@@ -90,8 +90,8 @@ public class Control extends JPanel {
 
         run = new JButton("Run");
         run.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        run.setBackground(SEAGRAY);
-        run.setForeground(SEABLUE);
+        run.setBackground(STONE);
+        run.setForeground(LIME);
         run.setBorderPainted(false);
         run.setFocusPainted(false);
         run.addActionListener(new BtnListener());
@@ -100,13 +100,13 @@ public class Control extends JPanel {
 
         generationCounter = new JLabel("");
         generationCounter.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        generationCounter.setForeground(SEABLUE);
+        generationCounter.setForeground(LIME);
         add(generationCounter);
 
         recall = new JButton("Recall");
         recall.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        recall.setBackground(SEAGRAY);
-        recall.setForeground(SEABLUE);
+        recall.setBackground(STONE);
+        recall.setForeground(LIME);
         recall.setBorderPainted(false);
         recall.setFocusPainted(false);
         recall.addActionListener(new BtnListener());
@@ -160,8 +160,8 @@ public class Control extends JPanel {
                     timer.stop();
                     run.setText("Run");
                     run.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-                    run.setBackground(SEAGRAY);
-                    run.setForeground(SEABLUE);
+                    run.setBackground(STONE);
+                    run.setForeground(LIME);
                     run.setActionCommand("run");
                     System.out.println("Timer Running: " + timer.isRunning());
                     break;
@@ -176,6 +176,7 @@ public class Control extends JPanel {
                     JPanel load = new JPanel();
                     JFrame compare = new JFrame("Compare");
                     CompareScore score = new CompareScore();
+                    compare.setIconImage(img.getImage());
                     load.setBackground(DARKGREY);
                     window.setBackground(DARKGREY);
                     score.setBackground(DARKGREY);
@@ -205,8 +206,8 @@ public class Control extends JPanel {
                 timer.stop();
                 run.setText("Run");
                 run.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-                run.setBackground(SEAGRAY);
-                run.setForeground(SEABLUE);
+                run.setBackground(STONE);
+                run.setForeground(LIME);
                 run.setActionCommand("run");
                 System.out.println("Timer Running: " + timer.isRunning());
             }
