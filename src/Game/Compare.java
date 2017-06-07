@@ -91,12 +91,12 @@ public class Compare extends JPanel {
                     l1.setText("File One Loaded.");
                     break;
                 case "load2":
-                    pattern2 = loader.loadOne();
+                    pattern2 = loader.loadOne();\\Change to load two
                     b2.setVisible(false);
                     l2.setText("File Two Loaded.");
                     break;
                 case "load3":
-                    pattern3 = loader.loadOne();
+                    pattern3 = loader.loadOne();\\change to load three
                     b3.setVisible(false);
                     l3.setText("File Three Loaded.");
                     break;
