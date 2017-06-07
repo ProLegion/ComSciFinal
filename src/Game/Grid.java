@@ -131,7 +131,7 @@ public class Grid extends JPanel {
             FileReader inStream;
             Scanner filein;
             int cell;
-            int[][] patternArray = new int[20][20];
+            int[][] patternArray = new int[gridSize][gridSize];
 
             try {
 
@@ -251,7 +251,7 @@ public class Grid extends JPanel {
         FileReader inStream;
         Scanner filein;
         int cell;
-        int[][] patternArray = new int[20][20];
+        int[][] patternArray = new int[gridSize][gridSize];
 
         try {
 

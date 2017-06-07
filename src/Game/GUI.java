@@ -9,7 +9,7 @@ import javax.swing.*;
  */
 public class GUI {
     private static void BuildGUI(){
-        Life life = new Life(20);
+        Life life = new Life(20);//this sets the size of the grid, saved patterns only work on the same sized grid as they were saved
         JPanel panel = new JPanel();
         Grid lifeGrid = new Grid(life);
         Control gameControl = new Control(lifeGrid);
