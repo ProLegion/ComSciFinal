@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author IVXX_LeGioN
  */
-public class Compare extends JPanel {
+public class CompareLoader extends JPanel {
 
     private JLabel title, l1, l2, l3;
     private JButton b1, b2, b3;
@@ -20,7 +20,7 @@ public class Compare extends JPanel {
     private static final Color LIME = new Color(153, 255, 51);
     private static final Color STONE = new Color(128, 128, 128);
 
-    public Compare() {
+    public CompareLoader() {
         setLayout(new GridLayout(0, 1, 10, 10));
 
         title = new JLabel("Compare 3 Files ");

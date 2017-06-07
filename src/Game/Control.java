@@ -172,7 +172,7 @@ public class Control extends JPanel {
                     recall.setVisible(false);
                     break;
                 case "compare":
-                    Compare window = new Compare();
+                    CompareLoader window = new CompareLoader();
                     JPanel load = new JPanel();
                     JFrame compare = new JFrame("Compare");
                     load.setBackground(DARKGREY);
