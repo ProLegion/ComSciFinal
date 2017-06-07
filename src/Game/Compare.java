@@ -74,36 +74,49 @@ public class Compare extends JPanel {
         add(b3);
     }
 
-}
+    class BtnListener implements ActionListener {
 
-class BtnListener implements ActionListener {
+        private int[][] pattern1;
+        private int[][] pattern2;
+        private int[][] pattern3;
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String whichBtn = e.getActionCommand();
-        Loader loader = new Loader();
-        switch (whichBtn) {
-            case "load1":
-                loader.loadOne();
-                
-                break;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String whichBtn = e.getActionCommand();
+            Loader loader = new Loader();
+            switch (whichBtn) {
+                case "load1":
+                    pattern1 = loader.loadOne();
+                    b1.setVisible(false);
+                    l1.setText("File One Loaded.");
+                    break;
+                case "load2":
+                    pattern2 = loader.loadOne();
+                    b2.setVisible(false);
+                    l2.setText("File Two Loaded.");
+                    break;
+                case "load3":
+                    pattern3 = loader.loadOne();
+                    b3.setVisible(false);
+                    l3.setText("File Three Loaded.");
+                    break;
+            }
         }
     }
-}
 
-class Loader {
+    class Loader {
 
-    private int[][] pattern1;
-    private int[][] pattern2;
-    private int[][] pattern3;
-    private final JFileChooser fc = new JFileChooser();
+        private int[][] pattern1;
+        private int[][] pattern2;
+        private int[][] pattern3;
+        private final JFileChooser fc = new JFileChooser();
 
-    public int[][] loadOne() {
+        public int[][] loadOne() {
             File pattern;
             int returnVal;
-            
+
             returnVal = fc.showOpenDialog(fc);
-            
+
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 pattern = fc.getSelectedFile();
                 FileReader inStream;
@@ -125,23 +138,71 @@ class Loader {
                     filein.close();
                     inStream.close();
                     System.out.println("File Loaded Sucessfully");
-                    return(pattern1);
+                    return (pattern1);
 
                 } catch (FileNotFoundException e) {
                     System.out.println("File does not exist or could not be found.");
                     System.err.println("FileNotFoundException:" + e.getMessage());
-                    return(null);
+                    return (null);
                 } catch (IOException e) {
                     System.out.println("Problem reading file.");
                     System.err.println("IOException" + e.getMessage());
-                    return(null);
+                    return (null);
                 }
-                
-        } else if (returnVal == JFileChooser.CANCEL_OPTION) {
-            return(null);
-        } else if (returnVal == JFileChooser.ERROR_OPTION) {
-            return(null);
+
+            } else if (returnVal == JFileChooser.CANCEL_OPTION) {
+                return (null);
+            } else if (returnVal == JFileChooser.ERROR_OPTION) {
+                return (null);
+            }
+            return (null);
         }
-        return(null);
+
+        public int[][] loadTwo() {
+            File pattern;
+            int returnVal;
+
+            returnVal = fc.showOpenDialog(fc);
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                pattern = fc.getSelectedFile();
+                FileReader inStream;
+                Scanner filein;
+                int cell;
+                int[][] pattern2 = new int[20][20];
+
+                try {
+
+                    inStream = new FileReader(pattern); //set up stream
+                    filein = new Scanner(inStream); //set up reader
+
+                    for (int row = 0; row < pattern2.length; row++) {
+                        for (int col = 0; col < pattern2.length; col++) {
+                            pattern2[row][col] = filein.nextInt();
+                        }
+                    }
+
+                    filein.close();
+                    inStream.close();
+                    System.out.println("File Loaded Sucessfully");
+                    return (pattern2);
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("File does not exist or could not be found.");
+                    System.err.println("FileNotFoundException:" + e.getMessage());
+                    return (null);
+                } catch (IOException e) {
+                    System.out.println("Problem reading file.");
+                    System.err.println("IOException" + e.getMessage());
+                    return (null);
+                }
+
+            } else if (returnVal == JFileChooser.CANCEL_OPTION) {
+                return (null);
+            } else if (returnVal == JFileChooser.ERROR_OPTION) {
+                return (null);
+            }
+            return (null);
+        }
     }
 }
