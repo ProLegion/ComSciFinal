@@ -265,4 +265,13 @@ public class CompareLoad extends JPanel {
             return (null);
         }
     }
+    
+    class Score{
+        public void getScore(int[][] pattern){
+            
+            
+            
+            
+        }
+    }
 }

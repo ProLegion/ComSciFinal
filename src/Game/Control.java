@@ -190,6 +190,8 @@ public class Control extends JPanel {
                     compare.setVisible(true);
                     break;
             }
+            
+            
  
         }
     }

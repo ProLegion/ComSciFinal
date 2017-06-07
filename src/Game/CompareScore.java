@@ -17,6 +17,7 @@ public class CompareScore extends JPanel {
     private static final Color LIME = new Color(153, 255, 51);
     
     public CompareScore() {
+        
         title = new JLabel("Score");
         title.setFont(new Font("Century Gothic", Font.PLAIN,12));
         title.setForeground(LIME);
