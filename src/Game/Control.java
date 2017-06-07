@@ -172,14 +172,18 @@ public class Control extends JPanel {
                     recall.setVisible(false);
                     break;
                 case "compare":
-                    CompareLoader window = new CompareLoader();
+                    CompareLoad window = new CompareLoad();
                     JPanel load = new JPanel();
                     JFrame compare = new JFrame("Compare");
+                    CompareScore score = new CompareScore();
                     load.setBackground(DARKGREY);
                     window.setBackground(DARKGREY);
+                    score.setBackground(DARKGREY);
                     load.add(window);
-                    compare.setResizable(false);
+                    load.add(score);
+                    compare.setResizable(true);
                     compare.setLocationRelativeTo(null);
+                    
                     compare.add(load);
                     compare.pack();
                     compare.setVisible(true);

@@ -11,16 +11,16 @@ import java.util.Scanner;
  *
  * @author IVXX_LeGioN
  */
-public class CompareLoader extends JPanel {
+public class CompareLoad extends JPanel {
 
     private JLabel title, l1, l2, l3;
-    private JButton b1, b2, b3;
+    private JButton b1, b2, b3, compare;
     private File pat1, pat2, pat3;
     private int score1, score2, score3;
     private static final Color LIME = new Color(153, 255, 51);
     private static final Color STONE = new Color(128, 128, 128);
 
-    public CompareLoader() {
+    public CompareLoad() {
         setLayout(new GridLayout(0, 1, 10, 10));
 
         title = new JLabel("Compare 3 Files ");
@@ -72,6 +72,16 @@ public class CompareLoader extends JPanel {
         b3.addActionListener(new BtnListener());
         b3.setActionCommand("load3");
         add(b3);
+        
+        compare = new  JButton("Compare");
+        compare.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+        compare.setBackground(STONE);
+        compare.setForeground(LIME);
+        compare.setBorder(null);
+        compare.setFocusPainted(false);
+        compare.addActionListener(new BtnListener());
+        compare.setActionCommand("compare");
+        add(compare);
     }
 
     class BtnListener implements ActionListener {
@@ -99,6 +109,9 @@ public class CompareLoader extends JPanel {
                     pattern3 = loader.loadOne();
                     b3.setVisible(false);
                     l3.setText("File Three Loaded.");
+                    break;
+                case "comapare":
+                    
                     break;
             }
         }
