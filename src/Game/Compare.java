@@ -83,7 +83,7 @@ class BtnListener implements ActionListener {
         String whichBtn = e.getActionCommand();
         Loader loader = new Loader();
         switch (whichBtn) {
-            case "Load 1":
+            case "load1":
                 loader.loadOne();
                 
                 break;
@@ -98,53 +98,50 @@ class Loader {
     private int[][] pattern3;
     private final JFileChooser fc = new JFileChooser();
 
-    public void loadOne() {
+    public int[][] loadOne() {
             File pattern;
             int returnVal;
             
             returnVal = fc.showOpenDialog(fc);
             
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-            pattern = fc.getSelectedFile();
-            FileReader inStream;
-            Scanner filein;
-            int cell;
-            int[][] patternArray = new int[20][20];
+                pattern = fc.getSelectedFile();
+                FileReader inStream;
+                Scanner filein;
+                int cell;
+                int[][] pattern1 = new int[20][20];
 
-            try {
+                try {
 
-                inStream = new FileReader(pattern); //set up stream
-                filein = new Scanner(inStream); //set up reader
+                    inStream = new FileReader(pattern); //set up stream
+                    filein = new Scanner(inStream); //set up reader
 
-                for (int row = 0; row < patternArray.length; row++) {
-                    for (int col = 0; col < patternArray.length; col++) {
-                        patternArray[row][col] = filein.nextInt();
+                    for (int row = 0; row < pattern1.length; row++) {
+                        for (int col = 0; col < pattern1.length; col++) {
+                            pattern1[row][col] = filein.nextInt();
+                        }
                     }
+
+                    filein.close();
+                    inStream.close();
+                    System.out.println("File Loaded Sucessfully");
+                    return(pattern1);
+
+                } catch (FileNotFoundException e) {
+                    System.out.println("File does not exist or could not be found.");
+                    System.err.println("FileNotFoundException:" + e.getMessage());
+                    return(null);
+                } catch (IOException e) {
+                    System.out.println("Problem reading file.");
+                    System.err.println("IOException" + e.getMessage());
+                    return(null);
                 }
-
-                filein.close();
-                inStream.close();
-                System.out.println("File Loaded Sucessfully");
-
-            } catch (FileNotFoundException e) {
-                System.out.println("File does not exist or could not be found.");
-                System.err.println("FileNotFoundException:" + e.getMessage());
-            } catch (IOException e) {
-                System.out.println("Problem reading file.");
-                System.err.println("IOException" + e.getMessage());
-            }
-
-            for (int row = 0; row < 0; row++) {
-                for (int col = 0; col < 0; col++) {
-
-                }
-
-            }
-
+                
         } else if (returnVal == JFileChooser.CANCEL_OPTION) {
-
+            return(null);
         } else if (returnVal == JFileChooser.ERROR_OPTION) {
-
+            return(null);
         }
+        return(null);
     }
 }
