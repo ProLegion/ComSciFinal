@@ -95,14 +95,37 @@ public class CompareLoad extends JPanel {
         public void actionPerformed(ActionEvent e) {
             String whichBtn = e.getActionCommand();
             Loader loader = new Loader();
-            Scorer scorer = new Scorer();
+//            Scorer scorer = new Scorer();
             switch (whichBtn) {
                 case "load1":
                     pattern1 = loader.loadOne();
                     b1.setVisible(false);
-                    l1.setText("File One Loaded.");
-                    break;
-                case "load2":
+                    Life thisGen = new Life(20);
+                    Life lastGen = new Life(20);
+                    int genCounter = 0;
+                    boolean stop = false;
+
+                    for (int row = 0; row < 20; row++) {
+                        for (int col = 0; col < 20; col++) {
+                            thisGen.setCell(row, col, pattern1[row][col]);
+                        }
+                    }
+
+                    while (stop = false) {
+                        lastGen = thisGen;
+
+                        thisGen.takeStep();
+                        genCounter++;
+                        System.out.println(genCounter);
+
+                        if (thisGen.equals(lastGen)) {
+                            stop = true;
+                            System.out.println("stopped, "+genCounter);
+                        }
+                    }
+                        l1.setText("File One Loaded."+genCounter);
+                        break;                
+            case "load2":
                     pattern2 = loader.loadTwo();
                     b2.setVisible(false);
                     l2.setText("File Two Loaded.");
@@ -113,214 +136,221 @@ public class CompareLoad extends JPanel {
                     l3.setText("File Three Loaded.");
                     break;
                 case "compare":
-                    scorer.getScore(pattern1);
+                    
                     break;
             }
+
         }
 
-        class Scorer {
-
-            private Life game;
-            private boolean flag = true;
-            private int[][] lastStep = new int[20][20];
-            private int[][] thisStep = new int[20][20];
-            private int genCounter;
-
-            public Scorer() {
-            }
-
-            public void getScore(int[][] pattern) {
-                game = new Life(20);
-                genCounter = 0;
-                int currentVal;
-                int setter = 0;
-                 
-                System.out.println("Calculating Score");
-
-                for (int row = 0; row < 20; row++) {
-                    for (int col = 0; col < 20; col++) {
-                       setter = pattern[row][col];
-                       game.setCell(row, col, setter);
-                    }
-                }//Game set to the pattern
-
-                while (flag == true) {
-                    for (int row = 0; row < 20; row++) {
-                        for (int col = 0; col <20; col++) {
-                            lastStep[row][col] = game.getCell(row, col);
-                        }
-                    }//Sets up array that will be used to see if generations are the same
-
-                    game.takeStep();
-                    genCounter++;
-
-                    for (int row = 0; row < 20; row++) {
-                        for (int col = 0; col < 20; col++) {
-                            thisStep[row][col] = game.getCell(row, col);
-
-                            }
-                        }
-                    //count total number of slots, then check how many of current are equal to last if the amount of equals is the same as total num, then arrays are same
-                    System.out.println(Arrays.deepEquals(lastStep, thisStep));
-//                    if(Arrays.equals(lastStep, thisStep)) ){
-//                        flag = false;
-//                        System.out.println("Stoped");
+       
+//        class Scorer {
+//
+//            private Life game;
+//            private boolean flag = true;
+//            private int[][] lastStep = new int[20][20];
+//            private int[][] thisStep = new int[20][20];
+//            private int genCounter;
+//
+//            public Scorer() {
+//            }
+//
+//            public void getScoreOne() {
+//                System.out.println("Test");
+//                for (int row = 0; row < pattern1.length; row++) {
+//                        for (int col = 0; col < pattern1.length; col++) {
+//                            System.out.println("Cell("+row+","+col+") = "+ pattern1[row][col]);
+//                        }
 //                    }
-                    System.out.println("Current Gen = " + genCounter);
+//                Life thisGen = new Life(20);
+//                Life lastGen = new Life(20);
+//                int genCounter = 0;
+//                boolean stop = false;
+//
+//                for (int row = 0; row < 20; row++) {
+//                    for (int col = 0; col < 20; col++) {
+//                        thisGen.setCell(row, col, pattern[row][col]);
+//                    }
+//                }
+//
+//                while (stop = false) {
+//                    lastGen = thisGen;
+//
+//                    thisGen.takeStep();
+//                    genCounter++;
+//                    System.out.println(genCounter);
+//
+//                    if (thisGen.equals(lastGen)) {
+//                        stop = true;
+//                        System.out.println("stopped");
+//                    }
+//
+//                }
+//            }
+//        }
+//
+//        public boolean equal(final int[][] arr1, final int[][] arr2) {
+//            if (arr1 == null) {
+//                return (arr2 == null);
+//            }
+//            if (arr2 == null) {
+//                return false;
+//            }
+//            for (int i = 0; i < arr1.length; i++) {
+//                if (!Arrays.equals(arr1[i], arr2[i])) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        }
+//    }
+
+        class Loader {
+
+                private int[][] pattern1;
+                private int[][] pattern2;
+                private int[][] pattern3;
+                private final JFileChooser fc = new JFileChooser();
+
+                public int[][] loadOne() {
+                    File pattern;
+                    int returnVal;
+
+                    returnVal = fc.showOpenDialog(fc);
+
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        pattern = fc.getSelectedFile();
+                        FileReader inStream;
+                        Scanner filein;
+                        int cell;
+                        int[][] pattern1 = new int[20][20];
+
+                        try {
+
+                            inStream = new FileReader(pattern); //set up stream
+                            filein = new Scanner(inStream); //set up reader
+
+                            for (int row = 0; row < pattern1.length; row++) {
+                                for (int col = 0; col < pattern1.length; col++) {
+                                    pattern1[row][col] = filein.nextInt();
+                                }
+                            }
+
+                            filein.close();
+                            inStream.close();
+                            System.out.println("File Loaded Sucessfully");
+                            return (pattern1);
+
+                        } catch (FileNotFoundException e) {
+                            System.out.println("File does not exist or could not be found.");
+                            System.err.println("FileNotFoundException:" + e.getMessage());
+                            return (null);
+                        } catch (IOException e) {
+                            System.out.println("Problem reading file.");
+                            System.err.println("IOException" + e.getMessage());
+                            return (null);
+                        }
+
+                    } else if (returnVal == JFileChooser.CANCEL_OPTION) {
+                        return (null);
+                    } else if (returnVal == JFileChooser.ERROR_OPTION) {
+                        return (null);
                     }
-                    
+                    return (null);
                 }
 
+                public int[][] loadTwo() {
+                    File pattern;
+                    int returnVal;
+
+                    returnVal = fc.showOpenDialog(fc);
+
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        pattern = fc.getSelectedFile();
+                        FileReader inStream;
+                        Scanner filein;
+                        int cell;
+                        int[][] pattern2 = new int[20][20];
+
+                        try {
+
+                            inStream = new FileReader(pattern); //set up stream
+                            filein = new Scanner(inStream); //set up reader
+
+                            for (int row = 0; row < pattern2.length; row++) {
+                                for (int col = 0; col < pattern2.length; col++) {
+                                    pattern2[row][col] = filein.nextInt();
+                                }
+                            }
+
+                            filein.close();
+                            inStream.close();
+                            System.out.println("File Loaded Sucessfully");
+                            return (pattern2);
+
+                        } catch (FileNotFoundException e) {
+                            System.out.println("File does not exist or could not be found.");
+                            System.err.println("FileNotFoundException:" + e.getMessage());
+                            return (null);
+                        } catch (IOException e) {
+                            System.out.println("Problem reading file.");
+                            System.err.println("IOException" + e.getMessage());
+                            return (null);
+                        }
+
+                    } else if (returnVal == JFileChooser.CANCEL_OPTION) {
+                        return (null);
+                    } else if (returnVal == JFileChooser.ERROR_OPTION) {
+                        return (null);
+                    }
+                    return (null);
+                }
+
+                public int[][] loadThree() {
+                    File pattern;
+                    int returnVal;
+
+                    returnVal = fc.showOpenDialog(fc);
+
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        pattern = fc.getSelectedFile();
+                        FileReader inStream;
+                        Scanner filein;
+                        int cell;
+                        int[][] pattern3 = new int[20][20];
+
+                        try {
+
+                            inStream = new FileReader(pattern); //set up stream
+                            filein = new Scanner(inStream); //set up reader
+
+                            for (int row = 0; row < pattern3.length; row++) {
+                                for (int col = 0; col < pattern3.length; col++) {
+                                    pattern3[row][col] = filein.nextInt();
+                                }
+                            }
+
+                            filein.close();
+                            inStream.close();
+                            System.out.println("File Loaded Sucessfully");
+                            return (pattern3);
+
+                        } catch (FileNotFoundException e) {
+                            System.out.println("File does not exist or could not be found.");
+                            System.err.println("FileNotFoundException:" + e.getMessage());
+                            return (null);
+                        } catch (IOException e) {
+                            System.out.println("Problem reading file.");
+                            System.err.println("IOException" + e.getMessage());
+                            return (null);
+                        }
+
+                    } else if (returnVal == JFileChooser.CANCEL_OPTION) {
+                        return (null);
+                    } else if (returnVal == JFileChooser.ERROR_OPTION) {
+                        return (null);
+                    }
+                    return (null);
+                }
             }
         }
     }
-
-    class Loader {
-
-        private int[][] pattern1;
-        private int[][] pattern2;
-        private int[][] pattern3;
-        private final JFileChooser fc = new JFileChooser();
-
-        public int[][] loadOne() {
-            File pattern;
-            int returnVal;
-
-            returnVal = fc.showOpenDialog(fc);
-
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                pattern = fc.getSelectedFile();
-                FileReader inStream;
-                Scanner filein;
-                int cell;
-                int[][] pattern1 = new int[20][20];
-
-                try {
-
-                    inStream = new FileReader(pattern); //set up stream
-                    filein = new Scanner(inStream); //set up reader
-
-                    for (int row = 0; row < pattern1.length; row++) {
-                        for (int col = 0; col < pattern1.length; col++) {
-                            pattern1[row][col] = filein.nextInt();
-                        }
-                    }
-
-                    filein.close();
-                    inStream.close();
-                    System.out.println("File Loaded Sucessfully");
-                    return (pattern1);
-
-                } catch (FileNotFoundException e) {
-                    System.out.println("File does not exist or could not be found.");
-                    System.err.println("FileNotFoundException:" + e.getMessage());
-                    return (null);
-                } catch (IOException e) {
-                    System.out.println("Problem reading file.");
-                    System.err.println("IOException" + e.getMessage());
-                    return (null);
-                }
-
-            } else if (returnVal == JFileChooser.CANCEL_OPTION) {
-                return (null);
-            } else if (returnVal == JFileChooser.ERROR_OPTION) {
-                return (null);
-            }
-            return (null);
-        }
-
-        public int[][] loadTwo() {
-            File pattern;
-            int returnVal;
-
-            returnVal = fc.showOpenDialog(fc);
-
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                pattern = fc.getSelectedFile();
-                FileReader inStream;
-                Scanner filein;
-                int cell;
-                int[][] pattern2 = new int[20][20];
-
-                try {
-
-                    inStream = new FileReader(pattern); //set up stream
-                    filein = new Scanner(inStream); //set up reader
-
-                    for (int row = 0; row < pattern2.length; row++) {
-                        for (int col = 0; col < pattern2.length; col++) {
-                            pattern2[row][col] = filein.nextInt();
-                        }
-                    }
-
-                    filein.close();
-                    inStream.close();
-                    System.out.println("File Loaded Sucessfully");
-                    return (pattern2);
-
-                } catch (FileNotFoundException e) {
-                    System.out.println("File does not exist or could not be found.");
-                    System.err.println("FileNotFoundException:" + e.getMessage());
-                    return (null);
-                } catch (IOException e) {
-                    System.out.println("Problem reading file.");
-                    System.err.println("IOException" + e.getMessage());
-                    return (null);
-                }
-
-            } else if (returnVal == JFileChooser.CANCEL_OPTION) {
-                return (null);
-            } else if (returnVal == JFileChooser.ERROR_OPTION) {
-                return (null);
-            }
-            return (null);
-        }
-
-        public int[][] loadThree() {
-            File pattern;
-            int returnVal;
-
-            returnVal = fc.showOpenDialog(fc);
-
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                pattern = fc.getSelectedFile();
-                FileReader inStream;
-                Scanner filein;
-                int cell;
-                int[][] pattern3 = new int[20][20];
-
-                try {
-
-                    inStream = new FileReader(pattern); //set up stream
-                    filein = new Scanner(inStream); //set up reader
-
-                    for (int row = 0; row < pattern3.length; row++) {
-                        for (int col = 0; col < pattern3.length; col++) {
-                            pattern3[row][col] = filein.nextInt();
-                        }
-                    }
-
-                    filein.close();
-                    inStream.close();
-                    System.out.println("File Loaded Sucessfully");
-                    return (pattern3);
-
-                } catch (FileNotFoundException e) {
-                    System.out.println("File does not exist or could not be found.");
-                    System.err.println("FileNotFoundException:" + e.getMessage());
-                    return (null);
-                } catch (IOException e) {
-                    System.out.println("Problem reading file.");
-                    System.err.println("IOException" + e.getMessage());
-                    return (null);
-                }
-
-            } else if (returnVal == JFileChooser.CANCEL_OPTION) {
-                return (null);
-            } else if (returnVal == JFileChooser.ERROR_OPTION) {
-                return (null);
-            }
-            return (null);
-        }
-    }
-

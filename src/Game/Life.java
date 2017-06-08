@@ -5,6 +5,8 @@
  */
 package Game;
 
+import java.util.Arrays;
+
 /**
  *
  * @author IVXX_LeGioN
@@ -141,5 +143,32 @@ private int[][] grid;
     
     public void setCell(int row, int col,int value){
         grid[row][col] = value;
-    }    
+    } 
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Arrays.deepHashCode(this.grid);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Life other = (Life) obj;
+        if (!Arrays.deepEquals(this.grid, other.grid)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
