@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Scanner;
+import java.util.Arrays;
 
 /**
  *
@@ -72,8 +73,8 @@ public class CompareLoad extends JPanel {
         b3.addActionListener(new BtnListener());
         b3.setActionCommand("load3");
         add(b3);
-        
-        compare = new  JButton("Compare");
+
+        compare = new JButton("Compare");
         compare.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         compare.setBackground(STONE);
         compare.setForeground(LIME);
@@ -86,7 +87,7 @@ public class CompareLoad extends JPanel {
 
     class BtnListener implements ActionListener {
 
-        private int[][] pattern1;
+        private int[][] pattern1 = new int[20][20];
         private int[][] pattern2;
         private int[][] pattern3;
 
@@ -94,6 +95,7 @@ public class CompareLoad extends JPanel {
         public void actionPerformed(ActionEvent e) {
             String whichBtn = e.getActionCommand();
             Loader loader = new Loader();
+            Scorer scorer = new Scorer();
             switch (whichBtn) {
                 case "load1":
                     pattern1 = loader.loadOne();
@@ -110,9 +112,65 @@ public class CompareLoad extends JPanel {
                     b3.setVisible(false);
                     l3.setText("File Three Loaded.");
                     break;
-                case "comapare":
-                    
+                case "compare":
+                    scorer.getScore(pattern1);
                     break;
+            }
+        }
+
+        class Scorer {
+
+            private Life game;
+            private boolean flag = true;
+            private int[][] lastStep = new int[20][20];
+            private int[][] thisStep = new int[20][20];
+            private int genCounter;
+
+            public Scorer() {
+            }
+
+            public void getScore(int[][] pattern) {
+                game = new Life(20);
+                genCounter = 0;
+                int currentVal;
+                int setter = 0;
+                 
+                System.out.println("Calculating Score");
+
+                for (int row = 0; row < 20; row++) {
+                    for (int col = 0; col < 20; col++) {
+                       setter = pattern[row][col];
+                       game.setCell(row, col, setter);
+                    }
+                }//Game set to the pattern
+
+                while (flag == true) {
+                    for (int row = 0; row < 20; row++) {
+                        for (int col = 0; col <20; col++) {
+                            lastStep[row][col] = game.getCell(row, col);
+                        }
+                    }//Sets up array that will be used to see if generations are the same
+
+                    game.takeStep();
+                    genCounter++;
+
+                    for (int row = 0; row < 20; row++) {
+                        for (int col = 0; col < 20; col++) {
+                            thisStep[row][col] = game.getCell(row, col);
+
+                            }
+                        }
+                    //count total number of slots, then check how many of current are equal to last if the amount of equals is the same as total num, then arrays are same
+                    System.out.println(Arrays.deepEquals(lastStep, thisStep));
+//                    if(Arrays.equals(lastStep, thisStep)) ){
+//                        flag = false;
+//                        System.out.println("Stoped");
+//                    }
+                    System.out.println("Current Gen = " + genCounter);
+                    }
+                    
+                }
+
             }
         }
     }
@@ -265,13 +323,4 @@ public class CompareLoad extends JPanel {
             return (null);
         }
     }
-    
-    class Score{
-        public void getScore(int[][] pattern){
-            
-            
-            
-            
-        }
-    }
-}
+
