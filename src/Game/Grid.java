@@ -16,11 +16,11 @@ import java.io.*;
  *
  * @author IVXX_LeGioN
  */
-public class Grid extends JPanel {
+public class Grid extends JPanel implements Serializable {
 
     private static final int GRID_WIDTH = 20;
     private static final int GRID_HEIGHT = GRID_WIDTH;
-    private int gridSize;
+    private int gridSize, highCount = 0, highRound = 0;
     private static final Color SEAGREEN = new Color(153, 255, 51);
     private static final Color SEABLUE = new Color(128, 128, 128);
     private static final Color GRAY = new Color(64, 64, 64);
@@ -284,4 +284,33 @@ public class Grid extends JPanel {
         }
         repaint();
     }
+    
+    public void scoreGrid(int currentGen){
+        int  alive = 0;
+        for (int row = 0; row < game.getSize(); row++) {
+            for (int col = 0; col < game.getSize(); col++) {
+                int temp = game.getCell(row, col);
+                
+                if(temp == 1){
+                    alive ++;
+                   
+                }
+            }
+        }
+        System.out.println("Alive = " + alive) ;
+        if(alive > highCount){
+            highCount = alive;
+            highRound = currentGen;
+        }
+        
+        System.out.println("Best Score " + highCount + " on generation " + highRound);
+    }
+    
+
+    @Override
+    public String toString() {
+        return "Grid{" + "gridSize=" + gridSize + ", highCount=" + highCount + ", highRound=" + highRound + ", game=" + game + ", fc=" + fc + '}';
+    }
+    
+    
 }

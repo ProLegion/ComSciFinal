@@ -19,6 +19,7 @@ public class Control extends JPanel {
     private JComboBox pres;
     private int generationNum = 0;
     private Grid grid;
+    private WriteGrid write = new WriteGrid();
     private Timer timer = new Timer(250, new TimerListener());
     private static final Color LIME = new Color(153, 255, 51);
     private static final Color STONE = new Color(128, 128, 128);
@@ -136,6 +137,7 @@ public class Control extends JPanel {
                 case "step":
                     grid.step();
                     generationNum++;
+                    grid.scoreGrid(generationNum);
                     generationCounter.setText("Generation: " + generationNum);
                     System.out.println("Single Step Taken");
                     break;
@@ -158,6 +160,7 @@ public class Control extends JPanel {
                     break;
                 case "stop":
                     timer.stop();
+                    write.writeScore(grid);
                     run.setText("Run");
                     run.setFont(new Font("Century Gothic", Font.PLAIN, 12));
                     run.setBackground(STONE);
@@ -203,9 +206,11 @@ public class Control extends JPanel {
             if (!grid.isEmpty()) {
                 grid.step();
                 generationNum++;
+                grid.scoreGrid(generationNum);
                 generationCounter.setText("Generation: " + generationNum);
             } else {
                 timer.stop();
+                write.writeScore(grid);
                 run.setText("Run");
                 run.setFont(new Font("Century Gothic", Font.PLAIN, 12));
                 run.setBackground(STONE);
