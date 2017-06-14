@@ -12,7 +12,7 @@ import java.io.*;
  */
 public class WriteGrid {
 
-    public void writeScore(Grid game) {
+    public void writeScore(DummyGrid game) {
         File scoreOut = new File("SCORES");
         try {
             /* Write Objects to the File*/
@@ -27,6 +27,7 @@ public class WriteGrid {
         } catch (IOException e) {
             System.out.println("I/O Error!!");
             System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
 
     }

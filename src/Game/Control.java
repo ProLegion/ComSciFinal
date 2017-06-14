@@ -9,16 +9,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
 /**
  *
  * @author IVXX_LeGioN
  */
 public class Control extends JPanel {
+
     private JButton step, clear, run, open, save, recall, compare;
-    private JLabel menuLabel,generationCounter;
+    private JLabel menuLabel, generationCounter;
     private JComboBox pres;
     private int generationNum = 0;
     private Grid grid;
+    private DummyGrid DGrid = new DummyGrid(0, 0);
     private WriteGrid write = new WriteGrid();
     private Timer timer = new Timer(250, new TimerListener());
     private static final Color LIME = new Color(153, 255, 51);
@@ -33,11 +36,11 @@ public class Control extends JPanel {
 
         menuLabel = new JLabel("          Menu");
         menuLabel.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-        
+
         menuLabel.setForeground(LIME);
-        
+
         add(menuLabel);
-        
+
         save = new JButton("Save");
         save.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         save.setBackground(STONE);
@@ -57,7 +60,7 @@ public class Control extends JPanel {
         open.addActionListener(new BtnListener());
         open.setActionCommand("open");
         add(open);
-        
+
         compare = new JButton("Compare");
         compare.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         compare.setBackground(STONE);
@@ -67,7 +70,7 @@ public class Control extends JPanel {
         compare.addActionListener(new BtnListener());
         compare.setActionCommand("compare");
         add(compare);
-        
+
         step = new JButton("Take Step");
         step.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         step.setBackground(STONE);
@@ -78,7 +81,7 @@ public class Control extends JPanel {
         step.setActionCommand("step");
         add(step);
 
-        
+
         clear = new JButton("Clear Grid");
         clear.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         clear.setBackground(STONE);
@@ -114,8 +117,8 @@ public class Control extends JPanel {
         recall.setActionCommand("recall");
         recall.setVisible(false);
         add(recall);
-        
-        
+
+
 
         setOpaque(false);
     }
@@ -160,7 +163,8 @@ public class Control extends JPanel {
                     break;
                 case "stop":
                     timer.stop();
-                    write.writeScore(grid);
+                    DGrid.setVals(grid.getHighRound(), grid.getHighCount());
+                    write.writeScore(DGrid);
                     run.setText("Run");
                     run.setFont(new Font("Century Gothic", Font.PLAIN, 12));
                     run.setBackground(STONE);
@@ -187,15 +191,15 @@ public class Control extends JPanel {
                     load.add(score);
                     compare.setResizable(true);
                     compare.setLocationRelativeTo(null);
-                    
+
                     compare.add(load);
                     compare.pack();
                     compare.setVisible(true);
                     break;
             }
-            
-            
- 
+
+
+
         }
     }
 
@@ -209,8 +213,9 @@ public class Control extends JPanel {
                 grid.scoreGrid(generationNum);
                 generationCounter.setText("Generation: " + generationNum);
             } else {
+                DGrid.setVals(grid.getHighRound(), grid.getHighCount());
+                write.writeScore(DGrid);
                 timer.stop();
-                write.writeScore(grid);
                 run.setText("Run");
                 run.setFont(new Font("Century Gothic", Font.PLAIN, 12));
                 run.setBackground(STONE);
@@ -219,5 +224,5 @@ public class Control extends JPanel {
                 System.out.println("Timer Running: " + timer.isRunning());
             }
         }
-    }    
+    }
 }

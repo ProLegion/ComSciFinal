@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Game;
 
 import java.awt.*;
@@ -313,7 +308,15 @@ public class Grid extends JPanel implements Serializable {
         String objStr;
         objStr = "Grid{" + "gridSize=" + gridSize + ", highCount=" + highCount + ", highRound=" + highRound + ", game=" + game + ", fc=" + fc + '}';        
         return(objStr);
+        
     }
     
+    public int getHighCount(){
+        return highCount;
+    }
     
+    public int getHighRound(){
+        return highRound;
+    }
+        
 }
