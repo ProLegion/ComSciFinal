@@ -61,14 +61,14 @@ public class Control extends JPanel {
         open.setActionCommand("open");
         add(open);
 
-        compare = new JButton("Compare");
+        compare = new JButton("ScoreBoard");
         compare.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         compare.setBackground(STONE);
         compare.setForeground(LIME);
         compare.setBorderPainted(false);
         compare.setFocusPainted(false);
         compare.addActionListener(new BtnListener());
-        compare.setActionCommand("compare");
+        compare.setActionCommand("scoreboard");
         add(compare);
 
         step = new JButton("Take Step");
@@ -178,7 +178,7 @@ public class Control extends JPanel {
                     generationCounter.setText("");
                     recall.setVisible(false);
                     break;
-                case "compare":
+                case "scoreboard":
                     CompareLoad window = new CompareLoad();
                     JPanel load = new JPanel();
                     JFrame compare = new JFrame("Compare");
@@ -187,8 +187,8 @@ public class Control extends JPanel {
                     load.setBackground(DARKGREY);
                     window.setBackground(DARKGREY);
                     score.setBackground(DARKGREY);
-                    load.add(window);
                     load.add(score);
+                    load.add(window);
                     compare.setResizable(true);
                     compare.setLocationRelativeTo(null);
 
