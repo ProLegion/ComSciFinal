@@ -20,8 +20,7 @@ public class WriteGrid {
             ObjectOutputStream writeGrid = new ObjectOutputStream(o);
 
             writeGrid.writeObject(game);
-
-
+            System.out.println("Score save to scoreboard");
             writeGrid.close();
             o.close();
         } catch (IOException e) {

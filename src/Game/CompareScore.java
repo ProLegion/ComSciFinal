@@ -18,7 +18,8 @@ public class CompareScore extends JPanel {
     
     public CompareScore() {
         
-        title = new JLabel("Score");
+        title = new JLabel("Scoreboard");
+        
         title.setFont(new Font("Century Gothic", Font.PLAIN,12));
         title.setForeground(LIME);
         add(title);

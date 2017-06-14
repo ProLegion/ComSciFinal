@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package Game;
+
 import java.io.*;
 
 /**
@@ -11,25 +12,23 @@ import java.io.*;
  */
 public class DummyGrid implements Serializable {
 
-    private int highCount, highRound;
-   
-    
-    public DummyGrid(int count, int round){
-        highCount = count;
-        highRound = round;
+    private int count, round;
+
+    public DummyGrid(int count, int round) {
+        this.count = count;
+        this.round = round;
     }
-    
-    public void setHighCount(int count){
-        highCount = count;
+
+    public void setVals(int round, int count) {
+        this.count = count;
+        this.round = round;
     }
-    
-    public void setHighRound(int round){
-        highRound = round;
+
+    public int getCount() {
+        return count;
     }
-    
-    public void setVals(int round, int count){
-        highCount = count;
-        highRound = round;
+
+    public int getRound() {
+        return round;
     }
-    
 }
