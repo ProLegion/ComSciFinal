@@ -168,6 +168,7 @@ public class Grid extends JPanel implements Serializable {
             JOptionPane.showMessageDialog(this, "No File Opened");
         } else if (returnVal == JFileChooser.ERROR_OPTION) {
             JOptionPane.showMessageDialog(this, "File could not be opened");
+            System.out.println(JFileChooser.ERROR);
         }
 
     }
@@ -309,7 +310,9 @@ public class Grid extends JPanel implements Serializable {
 
     @Override
     public String toString() {
-        return "Grid{" + "gridSize=" + gridSize + ", highCount=" + highCount + ", highRound=" + highRound + ", game=" + game + ", fc=" + fc + '}';
+        String objStr;
+        objStr = "Grid{" + "gridSize=" + gridSize + ", highCount=" + highCount + ", highRound=" + highRound + ", game=" + game + ", fc=" + fc + '}';        
+        return(objStr);
     }
     
     
