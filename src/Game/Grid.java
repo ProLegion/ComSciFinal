@@ -318,5 +318,10 @@ public class Grid extends JPanel implements Serializable {
     public int getHighRound(){
         return highRound;
     }
+    
+    public void clearScore(){
+        highCount = 0;
+        highRound = 0;
+    }
         
 }

@@ -31,4 +31,11 @@ public class DummyGrid implements Serializable {
     public int getRound() {
         return round;
     }
+
+    @Override
+    public String toString() {
+        return "DummyGrid{" + "count=" + count + ", round=" + round + '}';
+    }
+    
+    
 }

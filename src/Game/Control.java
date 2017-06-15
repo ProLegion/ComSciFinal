@@ -22,7 +22,7 @@ public class Control extends JPanel {
     private int generationNum = 0;
     private Grid grid;
     private DummyGrid DGrid = new DummyGrid(0, 0);
-    private WriteGrid write = new WriteGrid();
+    private GridIO write = new GridIO();
     private Timer timer = new Timer(250, new TimerListener());
     private static final Color LIME = new Color(153, 255, 51);
     private static final Color STONE = new Color(128, 128, 128);
@@ -164,6 +164,7 @@ public class Control extends JPanel {
                 case "stop":
                     timer.stop();
                     DGrid.setVals(grid.getHighRound(), grid.getHighCount());
+                    grid.clearScore();
                     write.writeScore(DGrid);
                     run.setText("Run");
                     run.setFont(new Font("Century Gothic", Font.PLAIN, 12));
@@ -214,6 +215,7 @@ public class Control extends JPanel {
                 generationCounter.setText("Generation: " + generationNum);
             } else {
                 DGrid.setVals(grid.getHighRound(), grid.getHighCount());
+                grid.clearScore();
                 write.writeScore(DGrid);
                 timer.stop();
                 run.setText("Run");

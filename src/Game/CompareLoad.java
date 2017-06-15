@@ -20,6 +20,7 @@ public class CompareLoad extends JPanel {
     private int score1, score2, score3;
     private static final Color LIME = new Color(153, 255, 51);
     private static final Color STONE = new Color(128, 128, 128);
+    private GridIO io = new GridIO();
 
     public CompareLoad() {
         setLayout(new GridLayout(0, 1, 10, 10));
@@ -47,9 +48,13 @@ public class CompareLoad extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             String whichBtn = e.getActionCommand();
+            int[] scores = new int[5];
             switch (whichBtn) {
                 case "refresh":
-
+                        scores = io.readScore();
+                        for (int i = 0; i < scores.length; i++) {
+                            System.out.println(scores[i]);
+                    }
                         break;
             }
 
