@@ -13,7 +13,9 @@ import java.util.Arrays;
  * @author IVXX_LeGioN
  */
 public class CompareLoad extends JPanel {
-
+    
+   private  int[] scores = new int[5];
+    
     private JLabel title, l1, l2, l3;
     private JButton b1, b2, b3, compare;
     private File pat1, pat2, pat3;
@@ -41,9 +43,12 @@ public class CompareLoad extends JPanel {
         add(b1);
 
     }
+    
+    public int[] getScoreTable(){
+        return scores;
+    }
 
     class BtnListener implements ActionListener {
-
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -51,15 +56,14 @@ public class CompareLoad extends JPanel {
             int[] scores = new int[5];
             switch (whichBtn) {
                 case "refresh":
-                        scores = io.readScore();
-                        for (int i = 0; i < scores.length; i++) {
-                            System.out.println(scores[i]);
+                    scores = io.readScore();
+                    for (int i = 0; i < scores.length; i++) {
+                        System.out.println(scores[i]);
                     }
-                        break;
+                    
+                    break;
             }
 
         }
-
-       
-        }
     }
+}

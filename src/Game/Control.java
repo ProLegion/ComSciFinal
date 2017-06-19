@@ -124,7 +124,8 @@ public class Control extends JPanel {
     }
 
     class BtnListener implements ActionListener {
-
+        int score = 0;
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             String whichBtn = e.getActionCommand();
@@ -163,9 +164,12 @@ public class Control extends JPanel {
                     break;
                 case "stop":
                     timer.stop();
-                    DGrid.setVals(grid.getHighRound(), grid.getHighCount());
+//                    DGrid.setVals(grid.getHighRound(), grid.getHighCount());
+                    
+                    
+                    score = grid.getHighCount();
+                    write.writeScore(score);
                     grid.clearScore();
-                    write.writeScore(DGrid);
                     run.setText("Run");
                     run.setFont(new Font("Century Gothic", Font.PLAIN, 12));
                     run.setBackground(STONE);
@@ -180,10 +184,13 @@ public class Control extends JPanel {
                     recall.setVisible(false);
                     break;
                 case "scoreboard":
-                    CompareLoad window = new CompareLoad();
+                    int[] scores;
+                    CompareLoad window = new CompareLoad(); // Refresh
                     JPanel load = new JPanel();
                     JFrame compare = new JFrame("Compare");
-                    CompareScore score = new CompareScore();
+                    CompareScore score = new CompareScore(); //List
+                    scores = window.getScoreTable();
+                    score.giveScoreTable(scores);
                     compare.setIconImage(img.getImage());
                     load.setBackground(DARKGREY);
                     window.setBackground(DARKGREY);
@@ -205,7 +212,7 @@ public class Control extends JPanel {
     }
 
     class TimerListener implements ActionListener {
-
+        int scores = 0;
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!grid.isEmpty()) {
@@ -214,9 +221,12 @@ public class Control extends JPanel {
                 grid.scoreGrid(generationNum);
                 generationCounter.setText("Generation: " + generationNum);
             } else {
-                DGrid.setVals(grid.getHighRound(), grid.getHighCount());
+//                DGrid.setVals(grid.getHighRound(), grid.getHighCount());
+                scores = grid.getHighCount();
+                System.out.println("Scores = "+ scores);
                 grid.clearScore();
-                write.writeScore(DGrid);
+                System.out.println("Scores = "+ scores);
+                write.writeScore(scores);
                 timer.stop();
                 run.setText("Run");
                 run.setFont(new Font("Century Gothic", Font.PLAIN, 12));

@@ -13,6 +13,8 @@ import java.awt.*;
  */
 public class CompareScore extends JPanel {
     
+    private int[] scores;
+    private String[] scoreStr = new String[5];
     private JLabel title, score1, score2, score3, score4, score5;
     private static final Color LIME = new Color(153, 255, 51);
     
@@ -48,6 +50,25 @@ public class CompareScore extends JPanel {
         score5.setFont(new Font("Century Gothic", Font.PLAIN,12));
         score5.setForeground(LIME);
         add(score5);
+    }
+    
+    public void giveScoreTable(int[]scores ){
+        this.scores = scores;
+        refreshTable();
+    }
+    
+    public void refreshTable(){
+        String temp = "";
+        for (int i = 0; i < scores.length; i++) {
+           temp += scores[i];
+            System.out.println("Temp = "+ temp);
+            scoreStr[i] = temp;
+            temp = "";
+        }
+        
+        
+            score1.setText("1. "+scores[1]);
+        
     }
 
 }

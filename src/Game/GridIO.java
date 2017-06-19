@@ -5,6 +5,7 @@
 package Game;
 
 import java.io.*;
+import java.util.Scanner;
 
 /**
  *
@@ -12,17 +13,26 @@ import java.io.*;
  */
 public class GridIO {
 
-    public void writeScore(DummyGrid game) {
-        File scoreOut = new File("SCORES");
+    public void writeScore(int score) {
+        File scoreOut = new File("SCORES.txt");
+        FileWriter out;
+        BufferedWriter writeFile;
+        String output = "";
+        System.out.println("Passed Score = " + score);
+        output += score + " ";
         try {
-            /* Write Objects to the File*/
-            FileOutputStream o = new FileOutputStream(scoreOut, true);
-            ObjectOutputStream writeGrid = new ObjectOutputStream(o);
 
-            writeGrid.writeObject(game);
-            System.out.println("Score save to scoreboard");
-            writeGrid.close();
-            o.close();
+            out = new FileWriter(scoreOut, false);
+            writeFile = new BufferedWriter(out);
+
+            writeFile.write(output);
+            System.out.println("scored");
+            writeFile.newLine();
+
+            writeFile.close();
+            out.close();
+
+            System.out.println("Data written to file.");
         } catch (IOException e) {
             System.out.println("I/O Error!!");
             System.out.println("Error: " + e.getMessage());
@@ -32,50 +42,40 @@ public class GridIO {
     }
 
     public int[] readScore() {
-        File inFile = new File("SCORES");
+        File inFile = new File("SCORES.txt");
         int[] scores = new int[5];
+        FileReader inStream;
+        Scanner filein;
+
 
         try {
-            FileInputStream in = new FileInputStream(inFile);
-            ObjectInputStream readFile = new ObjectInputStream(in);
 
-            DummyGrid s1 = (DummyGrid) readFile.readObject();
-            DummyGrid s2 = (DummyGrid) readFile.readObject();
-            DummyGrid s3 = (DummyGrid) readFile.readObject();
-            DummyGrid s4 = (DummyGrid) readFile.readObject();
-            DummyGrid s5 = (DummyGrid) readFile.readObject();
+            inStream = new FileReader(inFile); //set up stream
+            filein = new Scanner(inStream); //set up reader
 
-            scores[0] = s1.getCount();
-            scores[1] = s2.getCount();
-            scores[2] = s3.getCount();
-            scores[3] = s4.getCount();
-            scores[4] = s5.getCount();
-
-            readFile.close();
-            in.close();
-            return scores;
-        } catch (FileNotFoundException e) {
-            System.out.println("FILE NOT FOUND");
-            System.out.println(e.getMessage() + "\n");
-            for (int arr = 0; arr < scores.length; arr++) {
-                scores[arr] = 0;
+            for (int s = 0; s < scores.length; s++) {
+                if (filein.hasNextInt()) {
+                    if (scores[s] == 0) {
+                        scores[s] = filein.nextInt();
+                    }else{
+                        System.out.println("List Full");
+                    }
+                } else {
+                    scores[s] = 0;
+                }
             }
+
+            filein.close();
+            inStream.close();
             return scores;
         } catch (IOException e) {
             System.out.println("I/O ERROR");
             System.out.println(e.getMessage() + "\n");
-            for (int arr = 0; arr < scores.length; arr++) {
-                scores[arr] = 0;
-            }
-            return scores;
-        } catch (ClassNotFoundException e) {
-            System.out.println("COULD NOT READ CLASS");
-            System.out.println(e.getMessage() + "\n");
+            e.printStackTrace();
             for (int arr = 0; arr < scores.length; arr++) {
                 scores[arr] = 0;
             }
             return scores;
         }
-
     }
 }
