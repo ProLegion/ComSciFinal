@@ -57,6 +57,7 @@ public class CompareLoad extends JPanel {
             switch (whichBtn) {
                 case "refresh":
                     scores = io.readScore();
+                    
                     for (int i = 0; i < scores.length; i++) {
                         System.out.println(scores[i]);
                     }

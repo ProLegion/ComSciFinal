@@ -26,7 +26,7 @@ public class GridIO {
         output += score + " ";
         try {
 
-            out = new FileWriter(scoreOut, false);
+            out = new FileWriter(scoreOut, true);
             writeFile = new BufferedWriter(out);
 
             writeFile.write(output);
