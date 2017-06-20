@@ -60,7 +60,7 @@ public class Control extends JPanel { //GUI Class
         open.setActionCommand("open");
         add(open);
 
-        compare = new JButton("ScoreBoard");
+        compare = new JButton("Scoreboard");
         compare.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         compare.setBackground(STONE);
         compare.setForeground(LIME);
