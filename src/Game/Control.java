@@ -124,8 +124,9 @@ public class Control extends JPanel {
     }
 
     class BtnListener implements ActionListener {
+
         int score = 0;
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             String whichBtn = e.getActionCommand();
@@ -165,8 +166,8 @@ public class Control extends JPanel {
                 case "stop":
                     timer.stop();
 //                    DGrid.setVals(grid.getHighRound(), grid.getHighCount());
-                    
-                    
+
+
                     score = grid.getHighCount();
                     write.writeScore(score);
                     grid.clearScore();
@@ -185,18 +186,16 @@ public class Control extends JPanel {
                     break;
                 case "scoreboard":
                     int[] scores;
-                    CompareLoad window = new CompareLoad(); // Refresh
                     JPanel load = new JPanel();
                     JFrame compare = new JFrame("Compare");
                     CompareScore score = new CompareScore(); //List
-                    scores = window.getScoreTable();
-                    score.giveScoreTable(scores);
+
                     compare.setIconImage(img.getImage());
                     load.setBackground(DARKGREY);
-                    window.setBackground(DARKGREY);
+
                     score.setBackground(DARKGREY);
                     load.add(score);
-                    load.add(window);
+
                     compare.setResizable(true);
                     compare.setLocationRelativeTo(null);
 
@@ -212,7 +211,9 @@ public class Control extends JPanel {
     }
 
     class TimerListener implements ActionListener {
+
         int scores = 0;
+
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!grid.isEmpty()) {
@@ -223,9 +224,9 @@ public class Control extends JPanel {
             } else {
 //                DGrid.setVals(grid.getHighRound(), grid.getHighCount());
                 scores = grid.getHighCount();
-                System.out.println("Scores = "+ scores);
+                System.out.println("Scores = " + scores);
                 grid.clearScore();
-                System.out.println("Scores = "+ scores);
+                System.out.println("Scores = " + scores);
                 write.writeScore(scores);
                 timer.stop();
                 run.setText("Run");

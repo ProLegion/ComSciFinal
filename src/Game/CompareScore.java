@@ -66,7 +66,8 @@ public class CompareScore extends JPanel {
         b1.setActionCommand("refresh");
         add(b1);
     }
-        
+    
+
 
     class BtnListener implements ActionListener {
 
