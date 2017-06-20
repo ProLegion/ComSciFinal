@@ -66,12 +66,7 @@ public class CompareScore extends JPanel {
         b1.setActionCommand("refresh");
         add(b1);
     }
-    
-    public void giveScoreTable(int[]scores ){
-        this.scores = scores;
-        refreshTable();
-    }
-    
+        
 
     class BtnListener implements ActionListener {
 
