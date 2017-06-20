@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import sorts.Sorts;
 
 /**
  *
@@ -78,11 +79,12 @@ public class CompareScore extends JPanel {
             switch (whichBtn) {
                 case "refresh":
                     scores = io.readScore();
-                    score1.setText("1. "+ scores[0]);
-                    score2.setText("2. " + scores[1]);
+                    Sorts.insertionSort(scores);
+                    score1.setText("1. "+ scores[4]);
+                    score2.setText("2. " + scores[3]);
                     score3.setText("3. " + scores[2]);
-                    score4.setText("4. " + scores[3]);
-                    score5.setText("5. " + scores[4]);
+                    score4.setText("4. " + scores[1]);
+                    score5.setText("5. " + scores[0]);
                     for (int i = 0; i < scores.length; i++) {
                         System.out.println(scores[i]);
                     }
