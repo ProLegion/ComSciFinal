@@ -12,8 +12,14 @@ import java.util.Arrays;
  * @author IVXX_LeGioN
  */
 public class Life implements Interface {
-private int[][] grid;
 
+    private int[][] grid;
+
+    /**
+     * Creates a game of life with the square size of the supplied integer
+     *
+     * @param x
+     */
     public Life(int x) {
         grid = new int[x][x];
 
@@ -23,17 +29,29 @@ private int[][] grid;
             }
         }
 
-
-    }
-    
-    public int getSize() {
-        return grid.length;
     }
 
+    /**
+     * Creates a game of life based of a 2d array
+     *
+     * @param g
+     */
     public Life(int[][] g) {
         grid = g;
     }
 
+    /**
+     * Returns the size of the current life game
+     *
+     * @return
+     */
+    public int getSize() {
+        return grid.length;
+    }
+
+    /**
+     * Sets all cells to a dead state ( 0 )
+     */
     @Override
     public void killAllCells() {
         for (int row = 0; row < grid.length; row++) {
@@ -43,6 +61,11 @@ private int[][] grid;
         }
     }
 
+    /**
+     * Sets the grid to a starting one, NOT USED IN GUI VERSION!!
+     *
+     * @param startGrid
+     */
     @Override
     public void setPattern(int[][] startGrid) {
         grid = new int[startGrid.length][startGrid[0].length];
@@ -53,6 +76,14 @@ private int[][] grid;
         }
     }
 
+    /**
+     * A helper method the counts the number of neighboring cells, and returns
+     * the amount of neighbors
+     *
+     * @param cellRow
+     * @param cellCol
+     * @return
+     */
     @Override
     public int countNeighbours(int cellRow, int cellCol) {
         int numNeighbours = 0;
@@ -92,6 +123,13 @@ private int[][] grid;
         return numNeighbours;
     }
 
+    /**
+     * Applies the rules of life to a given cell
+     *
+     * @param cellRow
+     * @param cellCol
+     * @return
+     */
     @Override
     public int applyRules(int cellRow, int cellCol) {
         if (countNeighbours(cellRow, cellCol) < 2) { //Underpopulation, alive cells die, dead cells stay dead
@@ -109,6 +147,9 @@ private int[][] grid;
         }
     }
 
+    /**
+     * Advances the rules of life to all cells
+     */
     @Override
     public void takeStep() {
         int[][] nextGen = new int[grid.length][grid[0].length];
@@ -123,27 +164,46 @@ private int[][] grid;
             }
         }
     }
-    
+
+    /**
+     * Returns a string of the life game
+     *
+     * @return
+     */
     @Override
-    public String toString(){
+    public String toString() {
         String output = "";
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[0].length; col++) {
-                output += grid[row][col]+ " ";
+                output += grid[row][col] + " ";
             }
             output += "\n";
         }
-        
-        return(output);
+
+        return (output);
     }
-    
-    public int getCell(int row, int col){
+
+    /**
+     * Returns the value ( 0 or 1 ) of the given cell
+     *
+     * @param row
+     * @param col
+     * @return
+     */
+    public int getCell(int row, int col) {
         return grid[row][col];
     }
-    
-    public void setCell(int row, int col,int value){
+
+    /**
+     * Sets the given cell @ row, col to the supplied integer( 0 or 1)
+     *
+     * @param row
+     * @param col
+     * @param value
+     */
+    public void setCell(int row, int col, int value) {
         grid[row][col] = value;
-    } 
+    }
 
     @Override
     public int hashCode() {
@@ -152,6 +212,13 @@ private int[][] grid;
         return hash;
     }
 
+    /**
+     * Checks if two life objects are equal and returns a integer depending on
+     * the outcome
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -169,6 +236,5 @@ private int[][] grid;
         }
         return true;
     }
-    
-    
+
 }

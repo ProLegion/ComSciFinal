@@ -16,7 +16,10 @@ import javax.swing.JOptionPane;
 public class GridIO {
 
     private final JFileChooser fc = new JFileChooser();
-
+    /**
+     * Writes the highest score out to a file in the form of integer.
+     * @param score 
+     */
     public void writeScore(int score) {
         File scoreOut = new File("SCORES.txt");
         FileWriter out;
@@ -44,7 +47,11 @@ public class GridIO {
         }
 
     }
-
+    
+    /**
+     * Reads the score from the file and returns an integer array with the scores
+     * @return 
+     */
     public int[] readScore() {
         File inFile = new File("SCORES.txt");
         int[] scores = new int[5];
@@ -82,7 +89,12 @@ public class GridIO {
             return scores;
         }
     }
-
+    
+    /**
+     * Returns a 2d array loaded with a pattern that can be applied to the grid
+     * @param game
+     * @return 
+     */
     public int[][] load(Life game) {
         int[][] grid = new int[game.getSize()][game.getSize()];
         File pattern;

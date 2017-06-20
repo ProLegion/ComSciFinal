@@ -14,14 +14,13 @@ import javax.swing.*;
  *
  * @author IVXX_LeGioN
  */
-public class Control extends JPanel {
+public class Control extends JPanel { //GUI Class
 
     private JButton step, clear, run, open, save, recall, compare;
     private JLabel menuLabel, generationCounter;
     private JComboBox pres;
     private int generationNum = 0;
     private Grid grid;
-    private DummyGrid DGrid = new DummyGrid(0, 0);
     private GridIO write = new GridIO();
     private Timer timer = new Timer(250, new TimerListener());
     private static final Color LIME = new Color(153, 255, 51);
@@ -81,7 +80,6 @@ public class Control extends JPanel {
         step.setActionCommand("step");
         add(step);
 
-
         clear = new JButton("Clear Grid");
         clear.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         clear.setBackground(STONE);
@@ -117,8 +115,6 @@ public class Control extends JPanel {
         recall.setActionCommand("recall");
         recall.setVisible(false);
         add(recall);
-
-
 
         setOpaque(false);
     }
@@ -165,9 +161,6 @@ public class Control extends JPanel {
                     break;
                 case "stop":
                     timer.stop();
-//                    DGrid.setVals(grid.getHighRound(), grid.getHighCount());
-
-
                     score = grid.getHighCount();
                     write.writeScore(score);
                     grid.clearScore();
@@ -186,27 +179,20 @@ public class Control extends JPanel {
                     break;
                 case "scoreboard":
                     int[] scores;
-                    JPanel load = new JPanel();
+                    JPanel panel = new JPanel();
                     JFrame compare = new JFrame("Compare");
-                    CompareScore score = new CompareScore(); //List
-
+                    CompareScore scoreboard = new CompareScore();
                     compare.setIconImage(img.getImage());
-                    load.setBackground(DARKGREY);
-
-                    score.setBackground(DARKGREY);
-                    load.add(score);
-
-                    compare.setResizable(true);
+                    panel.setBackground(DARKGREY);
+                    scoreboard.setBackground(DARKGREY);
+                    panel.add(scoreboard);
+                    compare.setResizable(false);
                     compare.setLocationRelativeTo(null);
-
-                    compare.add(load);
+                    compare.add(panel);
                     compare.pack();
                     compare.setVisible(true);
-                    break;
+                    break; //Creates the Scoreboard window when clicked
             }
-
-
-
         }
     }
 
@@ -222,12 +208,9 @@ public class Control extends JPanel {
                 grid.scoreGrid(generationNum);
                 generationCounter.setText("Generation: " + generationNum);
             } else {
-//                DGrid.setVals(grid.getHighRound(), grid.getHighCount());
                 scores = grid.getHighCount();
-                System.out.println("Scores = " + scores);
                 grid.clearScore();
-                System.out.println("Scores = " + scores);
-                write.writeScore(scores);
+                write.writeScore(scores); // writes scores to file
                 timer.stop();
                 run.setText("Run");
                 run.setFont(new Font("Century Gothic", Font.PLAIN, 12));

@@ -15,7 +15,7 @@ public class Grid extends JPanel implements Serializable {
 
     private static final int GRID_WIDTH = 20;
     private static final int GRID_HEIGHT = GRID_WIDTH;
-    private int gridSize, highCount = 0, highRound = 0;
+    private int gridSize, count = 0, round = 0;
     private static final Color SEAGREEN = new Color(153, 255, 51);
     private static final Color SEABLUE = new Color(128, 128, 128);
     private static final Color GRAY = new Color(64, 64, 64);
@@ -94,6 +94,7 @@ public class Grid extends JPanel implements Serializable {
      */
     public void clear() {
         game.killAllCells();
+       clearScore();
         repaint();
     }
 
@@ -242,6 +243,10 @@ public class Grid extends JPanel implements Serializable {
         repaint();
     }
     
+    /**
+     * Tracks the amount of alive cells and saves the highest amount alive and on which round to variables.
+     * @param currentGen 
+     */
     public void scoreGrid(int currentGen){
         int  alive = 0;
         for (int row = 0; row < game.getSize(); row++) {
@@ -255,34 +260,48 @@ public class Grid extends JPanel implements Serializable {
             }
         }
         System.out.println("Alive = " + alive) ;
-        if(alive > highCount){
-            highCount = alive;
-            highRound = currentGen;
+        if(alive > count){
+            count = alive;
+            round = currentGen;
         }
         
-        System.out.println("Best Score " + highCount + " on generation " + highRound);
+        System.out.println("Best Score " + count + " on generation " + round);
     }
     
-
+    /**
+     *Returns a string the describes the grid.
+     * @return 
+     */
     @Override
     public String toString() {
         String objStr;
-        objStr = "Grid{" + "gridSize=" + gridSize + ", highCount=" + highCount + ", highRound=" + highRound + ", game=" + game + ", fc=" + fc + '}';        
+        objStr = "Grid{" + "gridSize=" + gridSize + ", highCount=" + count + ", highRound=" + round + ", game=" + game + ", fc=" + fc + '}';        
         return(objStr);
         
     }
     
+    /**
+     * Returns the current highest count variable
+     * @return 
+     */
     public int getHighCount(){
-        return highCount;
+        return count;
     }
     
+    /**
+     * returns the current highest round
+     * @return 
+     */
     public int getHighRound(){
-        return highRound;
+        return round;
     }
-    
+   
+    /**
+     * Resets the count and score variables
+     */
     public void clearScore(){
-        highCount = 0;
-        highRound = 0;
+        count = 0;
+        round = 0;
     }
         
 }

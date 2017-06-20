@@ -14,7 +14,7 @@ import sorts.Sorts;
  *
  * @author canto5684
  */
-public class CompareScore extends JPanel {
+public class CompareScore extends JPanel { //GUI Class
     
     private int[] scores;
     private String[] scoreStr = new String[5];
@@ -78,17 +78,13 @@ public class CompareScore extends JPanel {
             int[] scores = new int[5];
             switch (whichBtn) {
                 case "refresh":
-                    scores = io.readScore();
-                    Sorts.insertionSort(scores);
+                    scores = io.readScore(); //Reads the scores from the file
+                    Sorts.insertionSort(scores);//Sorts the scores low to high
                     score1.setText("1. "+ scores[4]);
                     score2.setText("2. " + scores[3]);
                     score3.setText("3. " + scores[2]);
                     score4.setText("4. " + scores[1]);
-                    score5.setText("5. " + scores[0]);
-                    for (int i = 0; i < scores.length; i++) {
-                        System.out.println(scores[i]);
-                    }
-                    
+                    score5.setText("5. " + scores[0]); // Changes the text on the score board                   
                     break;
             }
 
