@@ -20,6 +20,7 @@ public class Grid extends JPanel implements Serializable {
     private static final Color SEABLUE = new Color(128, 128, 128);
     private static final Color GRAY = new Color(64, 64, 64);
     private Life game;
+    private GridIO gIO = new GridIO();
     private final JFileChooser fc = new JFileChooser();
 
     public Grid(final Life game) {
@@ -117,55 +118,15 @@ public class Grid extends JPanel implements Serializable {
      * grid.
      */
     public void loadPattern() {
-
-        File pattern;
-
-        int returnVal = fc.showOpenDialog(Grid.this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            pattern = fc.getSelectedFile();
-            FileReader inStream;
-            Scanner filein;
-            int cell;
-            int[][] patternArray = new int[gridSize][gridSize];
-
-            try {
-
-                inStream = new FileReader(pattern); //set up stream
-                filein = new Scanner(inStream); //set up reader
-
-                for (int row = 0; row < patternArray.length; row++) {
-                    for (int col = 0; col < patternArray.length; col++) {
-                        patternArray[row][col] = filein.nextInt();
-                    }
-                }
-
-                filein.close();
-                inStream.close();
-                System.out.println("File Loaded Sucessfully");
-
-            } catch (FileNotFoundException e) {
-                System.out.println("File does not exist or could not be found.");
-                System.err.println("FileNotFoundException:" + e.getMessage());
-            } catch (IOException e) {
-                System.out.println("Problem reading file.");
-                System.err.println("IOException" + e.getMessage());
+        int[][] tempGrid = gIO.load(game);
+        
+        for (int row = 0; row < tempGrid.length; row++) {
+            for (int col = 0; col < tempGrid.length; col++) {
+                game.setCell(row, col, tempGrid[row][col]);
             }
-
-            for (int row = 0; row < game.getSize(); row++) {
-                for (int col = 0; col < game.getSize(); col++) {
-                    game.setCell(row, col, patternArray[row][col]);
-                }
-
-            }
-            JOptionPane.showMessageDialog(this, "File Opened Successfully");
-            repaint();
-        } else if (returnVal == JFileChooser.CANCEL_OPTION) {
-            JOptionPane.showMessageDialog(this, "No File Opened");
-        } else if (returnVal == JFileChooser.ERROR_OPTION) {
-            JOptionPane.showMessageDialog(this, "File could not be opened");
-            System.out.println(JFileChooser.ERROR);
         }
-
+        
+        repaint();
     }
 
     /**
